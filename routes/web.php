@@ -14,7 +14,7 @@ use App\Http\Controllers\FacebookController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::middleware([
@@ -27,6 +27,8 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
+// Get initial facebook redirection.
 Route::get('auth/facebook', [FacebookController::class,'redirectToFacebook'])->name('auth.facebook');
+
+// Get and check the user and save or redirect the user .
 Route::get('auth/facebook/callback', [FacebookController::class,'handleFacebookCallback']);

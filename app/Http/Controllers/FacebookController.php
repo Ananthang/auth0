@@ -17,6 +17,7 @@ class FacebookController extends Controller
      */
     public function redirectToFacebook()
     {
+        // Redirect facebook API;
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -28,19 +29,24 @@ class FacebookController extends Controller
     public function handleFacebookCallback()
     {
         try {
-            // dd(openssl_get_cert_locations());
-        //    dd(  $user = Socialite::driver('facebook')->user());
+            // Get User From the Facebook;
+            $user = Socialite::driver('facebook')->stateless()->user();
+            // find the  User From the Facebook Id;
             $finduser = User::where('facebook_id', $user->id)->first();
 
             if($finduser){
 
+                // If User exists user redirect to the dashboard with user details;
                 Auth::login($finduser);
 
                 return redirect()->intended('dashboard');
 
             }else{
+                // Create  new user and redirect to the dashboard with user details;
+
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'name' => $user->name,
+                        'avatar' => $user->avatar,
                         'facebook_id'=> $user->id,
                         'password' => encrypt('123456dummy')
                     ]);
@@ -51,6 +57,7 @@ class FacebookController extends Controller
             }
 
         } catch (Exception $e) {
+            // Print Error;
             dd($e->getMessage());
         }
     }
