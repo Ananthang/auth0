@@ -2,6 +2,7 @@
 
 ### Clone The Project :```git clone https://github.com/Ananthang/auth0.git```
 ### Change Dir  :   ```cd auth0```
+### Composer Install  :   ```composer install```
 ### Change db configuration  :
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -15,6 +16,7 @@
     FACEBOOK_CLIENT_ID=client_id
     FACEBOOK_CLIENT_SECRET=client_secret
 
+### Key generate  :   ```php artisan key:generate```
 ### Migrate Table : ``` php artisan migrate```
 
 ### Run the serve at port 8000 : ```php artisan serve```
